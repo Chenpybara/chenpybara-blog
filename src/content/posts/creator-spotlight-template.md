@@ -9,12 +9,12 @@ description: "A template for introducing a creator, embedding one representative
 This template is for a creator spotlight. Use it when the post is less about one video and more about a channel, filmmaker, editor, educator, or recurring series.
 
 <div class="video-embed">
-  <iframe
-    src="https://player.vimeo.com/video/VIDEO_ID"
-    title="Creator spotlight video"
-    loading="lazy"
-    allow="autoplay; fullscreen; picture-in-picture"
-    allowfullscreen
+  <iframe 
+	src="https://vidsonic.net/e/r92ss63utd5u" 
+	width="640" 
+	height="360" 
+	frameborder="0" 
+	allowfullscreen
   ></iframe>
 </div>
 
