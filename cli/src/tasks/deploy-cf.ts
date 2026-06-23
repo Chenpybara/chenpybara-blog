@@ -61,6 +61,36 @@ async function syncWorkerSecrets(workerName: string) {
   }
 }
 
+async function writeWorkerSecretsFile() {
+  const secrets = collectWorkerSecrets();
+  const secretKeys = Object.keys(secrets);
+
+  if (secretKeys.length === 0) {
+    console.log("No worker secrets provided; deploying without a secrets file");
+    return null;
+  }
+
+  const tempFile = ".wrangler-secrets.json";
+  await Bun.write(tempFile, JSON.stringify(secrets, null, 2));
+  console.log(`Prepared ${secretKeys.length} worker secret(s) for deploy`);
+  return tempFile;
+}
+
+async function deployWorkerWithSecrets() {
+  const secretsFile = await writeWorkerSecretsFile();
+  try {
+    if (secretsFile) {
+      await $`${bunExec} x wrangler deploy --secrets-file ${secretsFile}`;
+    } else {
+      await $`${bunExec} x wrangler deploy`;
+    }
+  } finally {
+    if (secretsFile) {
+      await unlink(secretsFile).catch(() => {});
+    }
+  }
+}
+
 async function buildClient() {
   const distIndex = Bun.file("./dist/client/index.html");
   if (await distIndex.exists()) {
@@ -290,11 +320,9 @@ export async function runCloudflareDeploy(target: "all" | "server" | "client" = 
   await fixTopField("remote", dbName, infoExists);
 
   if (target === "server") {
-    await $`${bunExec} x wrangler deploy`;
-    await syncWorkerSecrets(workerName);
+    await deployWorkerWithSecrets();
     return;
   }
 
-  await $`${bunExec} x wrangler deploy`;
-  await syncWorkerSecrets(workerName);
+  await deployWorkerWithSecrets();
 }
