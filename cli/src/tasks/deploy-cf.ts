@@ -77,17 +77,38 @@ async function writeWorkerSecretsFile() {
 }
 
 async function deployWorkerWithSecrets() {
+  await $`${bunExec} x wrangler deploy`;
+}
+
+async function syncWorkerSecretsWithRetry(workerName: string) {
   const secretsFile = await writeWorkerSecretsFile();
+
+  if (!secretsFile) {
+    return;
+  }
+
   try {
-    if (secretsFile) {
-      await $`${bunExec} x wrangler deploy --secrets-file ${secretsFile}`;
-    } else {
-      await $`${bunExec} x wrangler deploy`;
+    for (let attempt = 1; attempt <= 6; attempt++) {
+      const result = await $`${bunExec} x wrangler secret bulk ${secretsFile} --name ${workerName}`.nothrow();
+      if (result.exitCode === 0) {
+        console.log(`Synced worker secrets on attempt ${attempt}`);
+        return;
+      }
+
+      const stderr = result.stderr.toString();
+      const stdout = result.stdout.toString();
+      console.log(`Secret sync attempt ${attempt} failed`);
+      if (stdout) console.log(stdout);
+      if (stderr) console.error(stderr);
+
+      if (attempt === 6) {
+        throw new Error("Failed to sync worker secrets after 6 attempts");
+      }
+
+      await Bun.sleep(10000);
     }
   } finally {
-    if (secretsFile) {
-      await unlink(secretsFile).catch(() => {});
-    }
+    await unlink(secretsFile).catch(() => {});
   }
 }
 
@@ -321,8 +342,10 @@ export async function runCloudflareDeploy(target: "all" | "server" | "client" = 
 
   if (target === "server") {
     await deployWorkerWithSecrets();
+    await syncWorkerSecretsWithRetry(workerName);
     return;
   }
 
   await deployWorkerWithSecrets();
+  await syncWorkerSecretsWithRetry(workerName);
 }
