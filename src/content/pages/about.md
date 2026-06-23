@@ -1,18 +1,21 @@
 ---
-title: "about"
-description: "about chenpybara."
+title: "About"
+description: "About chenpybara Video Notes."
 ---
 
-# about
+# About
 
-Hello!I'm chenpybara。
+Hi, I am chenpybara.
 
-这里会用来分享视频。
+This site is a video-first notebook for collecting, embedding, and writing about videos from across the web. I use it for curated clips, creator spotlights, short commentary, and watch lists that deserve a permanent home outside social feeds.
 
-## 写什么
+## What I Share
 
-- 技术笔记：把踩过的坑、解决问题的过程和工具经验沉淀下来。
-- 项目记录：从想法到上线，记录每一步真实的取舍。
-- 日常观察：读书、生活、灵感和碎片思考。
+- Video essays and long-form breakdowns
+- Creator discoveries and channel notes
+- Short clips with context and takeaways
+- Weekly or themed video roundups
 
-你也可以在 [GitHub](https://github.com/chenpybara) 找到我。
+Most posts include an embedded video, a quick reason to watch, and a few notes that make the link easier to revisit later.
+
+You can also find me on [GitHub](https://github.com/chenpybara).

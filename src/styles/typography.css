@@ -55,6 +55,14 @@
       }
     }
 
+    .video-embed {
+      @apply border-border bg-muted/30 my-6 aspect-video w-full overflow-hidden border;
+
+      iframe {
+        @apply h-full w-full border-0;
+      }
+    }
+
     figcaption {
       @apply opacity-75;
     }

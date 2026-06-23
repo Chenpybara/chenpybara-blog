@@ -1,47 +1,64 @@
-# chenpybara Blog
+# chenpybara Video Notes
 
-chenpybara 的个人博客，基于 [AstroPaper](https://github.com/satnaing/astro-paper) 开源主题搭建，适合部署到 Cloudflare Pages。
+A video-first personal blog built with [AstroPaper](https://github.com/satnaing/astro-paper). It is designed for curated embeds, watch notes, creator discoveries, and short video essays.
 
-## 开发
+## Development
 
 ```bash
-corepack enable
 corepack pnpm install
 corepack pnpm dev
 ```
 
-## 构建
+## Build
 
 ```bash
 corepack pnpm build
 ```
 
-构建产物在 `dist/`。
+The production output is generated in `dist/`.
 
-## 写文章
+## Writing Video Posts
 
-文章放在 `src/content/posts/`，支持 Markdown 和 MDX。示例 frontmatter：
+Posts live in `src/content/posts/` and can be Markdown or MDX.
+
+Use this frontmatter pattern:
 
 ```md
 ---
 pubDatetime: 2026-06-23T10:00:00+08:00
-title: "文章标题"
-tags: ["标签"]
-description: "文章摘要"
+title: "Video title or essay title"
+featured: true
+tags: ["video", "curation"]
+description: "A one sentence summary for cards, RSS, and SEO."
 ---
+```
+
+For embeds, wrap iframes in `.video-embed`:
+
+```html
+<div class="video-embed">
+  <iframe
+    src="https://www.youtube.com/embed/VIDEO_ID"
+    title="Video title"
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  ></iframe>
+</div>
 ```
 
 ## Cloudflare Pages
 
-在 Cloudflare Pages 连接 GitHub 仓库后，使用以下配置：
+Connect this GitHub repository to Cloudflare Pages with:
 
 - Framework preset: `Astro`
 - Build command: `corepack pnpm build`
 - Build output directory: `dist`
+- Root directory: leave empty
 - Node.js version: `24`
 
-如果使用默认项目名，站点地址可以是 `https://chenpybara-blog.pages.dev/`。绑定自定义域名后，记得同步修改 `astro-paper.config.ts` 里的 `site.url`。
+If the Pages project uses the default name, the site URL can be `https://chenpybara-blog.pages.dev/`. If you bind a custom domain later, update `site.url` in `astro-paper.config.ts`.
 
-## 来源与许可证
+## License
 
-本项目基于 MIT 许可证的 AstroPaper 主题定制。原项目许可证保留在 `LICENSE`。
+This site is customized from the MIT licensed AstroPaper theme. The original license is kept in `LICENSE`.

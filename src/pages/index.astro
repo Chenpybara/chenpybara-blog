@@ -35,7 +35,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
   >
     <section id="hero" class="border-border border-b pt-8 pb-6">
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        chenpybara
+        chenpybara Video Notes
       </h1>
       <a
         target="_blank"
@@ -53,17 +53,18 @@ const homePath = getRelativeLocaleUrl(locale, "");
       </a>
 
       <p>
-        这里是 chenpybara 的个人博客，用来保存技术笔记、项目复盘、
-        阅读摘录和日常观察。写给未来的自己，也写给偶然路过的人。
+        A video-first notebook for embedded clips, creator discoveries, watch
+        notes, and short essays about the videos worth saving.
       </p>
       <p class="mt-2">
-        博客托管在 Cloudflare Pages，源码放在
+        The site is built with Astro, hosted on Cloudflare Pages, and managed
+        from
         <LinkButton
           class="hover:text-accent underline decoration-dashed underline-offset-4"
           href="https://github.com/chenpybara/chenpybara-blog"
         >
           GitHub
-        </LinkButton>，文章直接用 Markdown 编写。
+        </LinkButton>. New video posts are written in Markdown or MDX.
       </p>
       {
         socials.length > 0 && (

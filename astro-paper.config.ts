@@ -3,18 +3,19 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: "https://chenpybara-blog.pages.dev/",
-    title: "chenpybara Blog",
-    description: "chenpybara 的个人博客，记录技术、阅读和生活观察。",
+    title: "chenpybara Video Notes",
+    description:
+      "A video-first blog by chenpybara for embeds, curated clips, watch notes, and creator discoveries.",
     author: "chenpybara",
     profile: "https://github.com/chenpybara",
     ogImage: "default-og.jpg",
-    lang: "zh-CN",
+    lang: "en",
     timezone: "Asia/Shanghai",
     dir: "ltr",
   },
   posts: {
-    perPage: 4,
-    perIndex: 4,
+    perPage: 6,
+    perIndex: 6,
     scheduledPostMargin: 15 * 60 * 1000,
   },
   features: {
