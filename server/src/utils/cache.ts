@@ -84,7 +84,7 @@ class DatabaseStorageProvider implements StorageProvider {
             }
         }
 
-        // Save or update current cache entries
+        // Upsert current cache entries (atomic, handles concurrent writes)
         for (const [key, value] of this.cacheMap.entries()) {
             if (value === undefined) {
                 console.warn(`Cache: Skipping undefined value for key "${key}"`);
@@ -93,17 +93,16 @@ class DatabaseStorageProvider implements StorageProvider {
 
             const valueStr = typeof value === 'string' ? value : JSON.stringify(value);
 
-            if (existingKeys.has(key)) {
-                await this.db.update(cache)
-                    .set({ value: valueStr, updatedAt: new Date() })
-                    .where(and(eq(cache.key, key), eq(cache.type, this.type)));
-            } else {
-                await this.db.insert(cache).values({
+            await this.db.insert(cache)
+                .values({
                     key,
                     value: valueStr,
                     type: this.type,
+                })
+                .onConflictDoUpdate({
+                    target: [cache.key, cache.type],
+                    set: { value: valueStr, updatedAt: new Date() },
                 });
-            }
         }
     }
 
