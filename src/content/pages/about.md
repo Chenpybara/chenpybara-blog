@@ -1,13 +1,13 @@
 ---
-title: "关于"
-description: "关于 chenpybara 和这个博客。"
+title: "about"
+description: "about chenpybara."
 ---
 
-# 关于
+# about
 
-你好，我是 chenpybara。
+Hello!I'm chenpybara。
 
-这里会用来记录技术学习、项目实践、阅读笔记和一些生活观察。博客使用 [Astro](https://astro.build/) 构建，文章用 Markdown 或 MDX 编写，并部署在 Cloudflare Pages 上。
+这里会用来分享视频。
 
 ## 写什么
 
